@@ -1,11 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const { handleBFHL } = require("../controllers/bfhl.controller");
 
-router.post("/", (req, res) => {
-  res.status(501).json({
-    is_success: false,
-    error: "Not implemented yet"
-  });
-});
+router.post("/", handleBFHL);
 
 module.exports = router;

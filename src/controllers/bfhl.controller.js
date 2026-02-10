@@ -91,6 +91,34 @@ exports.handleBFHL = (req, res) => {
     result = nums.filter(isPrime);
   }
 
+    if (key === "lcm") {
+    const nums = value;
+
+    const gcd = (a, b) => {
+      while (b !== 0) {
+        [a, b] = [b, a % b];
+      }
+      return a;
+    };
+
+    const lcm = (a, b) => (a * b) / gcd(a, b);
+
+    result = nums.reduce((acc, curr) => lcm(acc, curr));
+  }
+
+  if (key === "hcf") {
+    const nums = value;
+
+    const gcd = (a, b) => {
+      while (b !== 0) {
+        [a, b] = [b, a % b];
+      }
+      return a;
+    };
+
+    result = nums.reduce((acc, curr) => gcd(acc, curr));
+  }
+
   return res.status(200).json(
     successResponse(result)
   );

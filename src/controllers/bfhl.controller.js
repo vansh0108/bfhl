@@ -60,8 +60,39 @@ exports.handleBFHL = (req, res) => {
     }
   }
 
-  // 🚧 TEMP success (logic comes next)
+    // === LOGIC EXECUTION ===
+
+  let result;
+
+  if (key === "fibonacci") {
+    const n = value;
+    const series = [];
+
+    let a = 0, b = 1;
+    for (let i = 0; i < n; i++) {
+      series.push(a);
+      [a, b] = [b, a + b];
+    }
+
+    result = series;
+  }
+
+  if (key === "prime") {
+    const nums = value;
+
+    const isPrime = (num) => {
+      if (num < 2) return false;
+      for (let i = 2; i <= Math.sqrt(num); i++) {
+        if (num % i === 0) return false;
+      }
+      return true;
+    };
+
+    result = nums.filter(isPrime);
+  }
+
   return res.status(200).json(
-    successResponse("Validation passed")
+    successResponse(result)
   );
+
 };

@@ -1,6 +1,7 @@
 const { successResponse, errorResponse } = require("../utils/response.util");
+const { getAIResponse } = require("../services/ai.service");
 
-exports.handleBFHL = (req, res) => {
+exports.handleBFHL = async (req, res) => {
   const body = req.body;
 
   // Rule 1: body must exist
@@ -117,6 +118,15 @@ exports.handleBFHL = (req, res) => {
     };
 
     result = nums.reduce((acc, curr) => gcd(acc, curr));
+  }
+    if (key === "AI") {
+    try {
+      result = await getAIResponse(value);
+    } catch (err) {
+      return res.status(503).json(
+        errorResponse("AI service unavailable")
+      );
+    }
   }
 
   return res.status(200).json(
